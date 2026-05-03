@@ -1,12 +1,30 @@
     --// ═══════════════════════════════════════════════════════
-    --//  SCRIPT SELECTOR FRAME (Hidden) — Delta Compatible
+    --//  SCRIPT SELECTOR FRAME — Self-Contained, Delta Safe
     --// ═══════════════════════════════════════════════════════
+    
+    -- Local colors for selector (in case CONFIG scope issues)
+    local S_COLORS = {
+        Background = Color3.fromRGB(5, 5, 9),
+        Surface = Color3.fromRGB(16, 16, 24),
+        Text = Color3.fromRGB(245, 245, 255),
+        SubText = Color3.fromRGB(130, 130, 150),
+        Error = Color3.fromRGB(255, 60, 80),
+        Success = Color3.fromRGB(50, 255, 120),
+        Warning = Color3.fromRGB(255, 190, 50),
+        Primary = Color3.fromRGB(255, 185, 0),
+        Cyraa = Color3.fromRGB(160, 90, 255),
+        Tora = Color3.fromRGB(255, 85, 85),
+        Fartez = Color3.fromRGB(255, 130, 0),
+        NotZnx = Color3.fromRGB(0, 230, 180),
+        Mystrix = Color3.fromRGB(255, 40, 180)
+    }
+
     local selectorFrame = Create("Frame", {
         Name = "SelectorFrame",
         Size = UDim2.new(0, 520, 0, 640),
         Position = UDim2.new(0.5, 0, 0.5, 0),
         AnchorPoint = Vector2.new(0.5, 0.5),
-        BackgroundColor3 = CONFIG.Colors.Background,
+        BackgroundColor3 = S_COLORS.Background,
         BackgroundTransparency = 0.02,
         BorderSizePixel = 0,
         Parent = screenGui,
@@ -14,8 +32,7 @@
         ClipsDescendants = true
     })
     Create("UICorner", {CornerRadius = UDim.new(0, 20), Parent = selectorFrame})
-    -- REMOVED: UIAspectRatioConstraint (causes issues on Delta)
-    Create("UIStroke", {Color = CONFIG.Colors.Primary, Transparency = 0.6, Thickness = 1.6, Parent = selectorFrame})
+    Create("UIStroke", {Color = S_COLORS.Primary, Transparency = 0.6, Thickness = 1.6, Parent = selectorFrame})
 
     -- Inner border
     local selInnerBorder = Create("Frame", {
@@ -33,36 +50,36 @@
     local selAmbient = Create("Frame", {Size = UDim2.new(1, 0, 1, 0), BackgroundTransparency = 1, Parent = selectorFrame, ZIndex = 0})
     local selAmbGrad = Create("UIGradient", {
         Color = ColorSequence.new({
-            ColorSequenceKeypoint.new(0, CONFIG.Colors.Cyraa),
-            ColorSequenceKeypoint.new(0.5, CONFIG.Colors.Tora),
-            ColorSequenceKeypoint.new(1, CONFIG.Colors.Cyraa)
+            ColorSequenceKeypoint.new(0, S_COLORS.Cyraa),
+            ColorSequenceKeypoint.new(0.5, S_COLORS.Tora),
+            ColorSequenceKeypoint.new(1, S_COLORS.Cyraa)
         }),
         Transparency = NumberSequence.new(0.94, 0.97),
         Rotation = -45,
         Parent = selAmbient
     })
 
-    --// Selector Title
-    local selTitleBox = Create("Frame", {Size = UDim2.new(1, 0, 0, 90), Position = UDim2.new(0, 0, 0, 12), BackgroundTransparency = 1, Parent = selectorFrame, ZIndex = 10})
+    --// Title
+    local selTitleBox = Create("Frame", {Size = UDim2.new(1, 0, 0, 86), Position = UDim2.new(0, 0, 0, 12), BackgroundTransparency = 1, Parent = selectorFrame, ZIndex = 10})
 
     local selTitle = Create("TextLabel", {
-        Size = UDim2.new(1, -40, 0, 42),
+        Size = UDim2.new(1, -40, 0, 40),
         Position = UDim2.new(0.5, 0, 0, 8),
         AnchorPoint = Vector2.new(0.5, 0),
         BackgroundTransparency = 1,
         Text = "SCRIPT SELECTOR",
-        TextColor3 = CONFIG.Colors.Text,
-        Font = Enum.Font.GothamBlack,
-        TextSize = 34,
+        TextColor3 = S_COLORS.Text,
+        Font = Enum.Font.GothamBold,
+        TextSize = 32,
         Parent = selTitleBox,
         ZIndex = 10
     })
     local selTitleGrad = Create("UIGradient", {
         Color = ColorSequence.new({
-            ColorSequenceKeypoint.new(0, CONFIG.Colors.Cyraa),
+            ColorSequenceKeypoint.new(0, S_COLORS.Cyraa),
             ColorSequenceKeypoint.new(0.3, Color3.fromRGB(255, 255, 255)),
-            ColorSequenceKeypoint.new(0.7, CONFIG.Colors.Tora),
-            ColorSequenceKeypoint.new(1, CONFIG.Colors.Cyraa)
+            ColorSequenceKeypoint.new(0.7, S_COLORS.Tora),
+            ColorSequenceKeypoint.new(1, S_COLORS.Cyraa)
         }),
         Rotation = 0,
         Parent = selTitle
@@ -78,11 +95,11 @@
 
     Create("TextLabel", {
         Size = UDim2.new(1, -40, 0, 16),
-        Position = UDim2.new(0.5, 0, 0, 52),
+        Position = UDim2.new(0.5, 0, 0, 50),
         AnchorPoint = Vector2.new(0.5, 0),
         BackgroundTransparency = 1,
         Text = "C H O O S E   Y O U R   S C R I P T",
-        TextColor3 = CONFIG.Colors.SubText,
+        TextColor3 = S_COLORS.SubText,
         Font = Enum.Font.GothamSemibold,
         TextSize = 11,
         Parent = selTitleBox,
@@ -93,10 +110,10 @@
     local backBtn = Create("TextButton", {
         Size = UDim2.new(0, 70, 0, 30),
         Position = UDim2.new(0, 14, 0, 14),
-        BackgroundColor3 = CONFIG.Colors.Surface,
+        BackgroundColor3 = S_COLORS.Surface,
         BackgroundTransparency = 0.1,
         Text = "← Back",
-        TextColor3 = CONFIG.Colors.Text,
+        TextColor3 = S_COLORS.Text,
         Font = Enum.Font.GothamBold,
         TextSize = 12,
         AutoButtonColor = false,
@@ -104,7 +121,7 @@
         ZIndex = 15
     })
     Create("UICorner", {CornerRadius = UDim.new(0, 10), Parent = backBtn})
-    Create("UIStroke", {Color = CONFIG.Colors.SubText, Transparency = 0.5, Thickness = 1.2, Parent = backBtn})
+    Create("UIStroke", {Color = S_COLORS.SubText, Transparency = 0.5, Thickness = 1.2, Parent = backBtn})
     backBtn.MouseEnter:Connect(function()
         Tween(backBtn, 0.2, nil, nil, {BackgroundTransparency = 0, Size = UDim2.new(0, 74, 0, 32)})
     end)
@@ -130,41 +147,41 @@
     local countBadge = Create("Frame", {
         Size = UDim2.new(0, 76, 0, 26),
         Position = UDim2.new(1, -90, 0, 16),
-        BackgroundColor3 = CONFIG.Colors.Surface,
+        BackgroundColor3 = S_COLORS.Surface,
         BackgroundTransparency = 0.1,
         BorderSizePixel = 0,
         Parent = selectorFrame,
         ZIndex = 15
     })
     Create("UICorner", {CornerRadius = UDim.new(0, 13), Parent = countBadge})
-    Create("UIStroke", {Color = CONFIG.Colors.Primary, Transparency = 0.4, Thickness = 1.2, Parent = countBadge})
+    Create("UIStroke", {Color = S_COLORS.Primary, Transparency = 0.4, Thickness = 1.2, Parent = countBadge})
     Create("TextLabel", {
         Size = UDim2.new(1, 0, 1, 0),
         BackgroundTransparency = 1,
         Text = "5 Scripts",
-        TextColor3 = CONFIG.Colors.Primary,
+        TextColor3 = S_COLORS.Primary,
         Font = Enum.Font.GothamBold,
         TextSize = 12,
         Parent = countBadge,
         ZIndex = 16
     })
 
-    --// Scrolling Grid — Delta safe sizing
+    --// Scrolling Grid
     local scrollFrame = Create("ScrollingFrame", {
-        Size = UDim2.new(1, -28, 1, -200),
-        Position = UDim2.new(0.5, 0, 0, 100),
+        Size = UDim2.new(1, -28, 1, -196),
+        Position = UDim2.new(0.5, 0, 0, 96),
         AnchorPoint = Vector2.new(0.5, 0),
         BackgroundTransparency = 1,
         Parent = selectorFrame,
         ZIndex = 10,
         ScrollBarThickness = 4,
-        ScrollBarImageColor3 = CONFIG.Colors.SubText,
+        ScrollBarImageColor3 = S_COLORS.SubText,
         BorderSizePixel = 0,
-        CanvasSize = UDim2.new(0, 0, 0, 520)
+        CanvasSize = UDim2.new(0, 0, 0, 500)
     })
 
     local gridLayout = Create("UIGridLayout", {
-        CellSize = UDim2.new(0, 234, 0, 174),
+        CellSize = UDim2.new(0, 234, 0, 170),
         CellPadding = UDim2.new(0, 10, 0, 10),
         HorizontalAlignment = Enum.HorizontalAlignment.Center,
         VerticalAlignment = Enum.VerticalAlignment.Top,
@@ -173,12 +190,12 @@
 
 --// SCRIPT SELECTOR — PART 2 BELOW
     --// ═══════════════════════════════════════════════════════
-    --//  SCRIPT CARD FACTORY — Delta Safe
+    --//  SCRIPT CARD FACTORY — Uses S_COLORS only
     --// ═══════════════════════════════════════════════════════
     local function MakeScriptCard(name, desc, color, url, hasExternalKey, banRisk)
         local card = Create("Frame", {
-            Size = UDim2.new(0, 234, 0, 174),
-            BackgroundColor3 = CONFIG.Colors.Surface,
+            Size = UDim2.new(0, 234, 0, 170),
+            BackgroundColor3 = S_COLORS.Surface,
             BackgroundTransparency = 0.08,
             BorderSizePixel = 0,
             Parent = scrollFrame,
@@ -209,19 +226,19 @@
             Text = name,
             TextColor3 = color,
             Font = Enum.Font.GothamBold,
-            TextSize = 17,
+            TextSize = 16,
             Parent = card,
             ZIndex = 11
         })
 
         -- Description
         Create("TextLabel", {
-            Size = UDim2.new(1, -16, 0, 34),
+            Size = UDim2.new(1, -16, 0, 32),
             Position = UDim2.new(0.5, 0, 0, 36),
             AnchorPoint = Vector2.new(0.5, 0),
             BackgroundTransparency = 1,
             Text = desc,
-            TextColor3 = CONFIG.Colors.SubText,
+            TextColor3 = S_COLORS.SubText,
             Font = Enum.Font.Gotham,
             TextSize = 11,
             TextWrapped = true,
@@ -230,12 +247,12 @@
         })
 
         -- Status indicator
-        local statusColor = banRisk and CONFIG.Colors.Error or (hasExternalKey and CONFIG.Colors.Warning or CONFIG.Colors.Success)
+        local statusColor = banRisk and S_COLORS.Error or (hasExternalKey and S_COLORS.Warning or S_COLORS.Success)
         local statusText = banRisk and "🔴 High ban risk" or (hasExternalKey and "🔑 External key" or "✓ Ready")
         
         local statusDot = Create("Frame", {
             Size = UDim2.new(0, 8, 0, 8),
-            Position = UDim2.new(0, 14, 0, 80),
+            Position = UDim2.new(0, 14, 0, 76),
             BackgroundColor3 = statusColor,
             BorderSizePixel = 0,
             Parent = card,
@@ -245,7 +262,7 @@
 
         Create("TextLabel", {
             Size = UDim2.new(1, -36, 0, 16),
-            Position = UDim2.new(0, 26, 0, 76),
+            Position = UDim2.new(0, 26, 0, 72),
             BackgroundTransparency = 1,
             Text = statusText,
             TextColor3 = statusColor,
@@ -257,8 +274,8 @@
 
         -- Execute button container
         local execContainer = Create("Frame", {
-            Size = UDim2.new(1, -16, 0, 46),
-            Position = UDim2.new(0.5, 0, 0, 100),
+            Size = UDim2.new(1, -16, 0, 44),
+            Position = UDim2.new(0.5, 0, 0, 96),
             AnchorPoint = Vector2.new(0.5, 0),
             BackgroundTransparency = 1,
             Parent = card,
@@ -267,13 +284,13 @@
 
         -- Execute button
         local execBtn = Create("TextButton", {
-            Size = UDim2.new(1, 0, 0, 42),
+            Size = UDim2.new(1, 0, 0, 40),
             Position = UDim2.new(0.5, 0, 0.5, 0),
             AnchorPoint = Vector2.new(0.5, 0.5),
             BackgroundColor3 = color,
             BackgroundTransparency = 0.1,
             Text = "▶ EXECUTE",
-            TextColor3 = CONFIG.Colors.Text,
+            TextColor3 = S_COLORS.Text,
             Font = Enum.Font.GothamBold,
             TextSize = 14,
             AutoButtonColor = false,
@@ -288,33 +305,35 @@
         execBtn.MouseEnter:Connect(function()
             Tween(execBtn, 0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out, {
                 BackgroundTransparency = 0,
-                Size = UDim2.new(1, 4, 0, 44)
+                Size = UDim2.new(1, 4, 0, 42)
             })
         end)
         execBtn.MouseLeave:Connect(function()
             Tween(execBtn, 0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out, {
                 BackgroundTransparency = 0.1,
-                Size = UDim2.new(1, 0, 0, 42)
+                Size = UDim2.new(1, 0, 0, 40)
             })
         end)
         execBtn.MouseButton1Down:Connect(function(x, y)
             Ripple(execBtn, Vector2.new(x, y) - execBtn.AbsolutePosition)
-            Tween(execBtn, 0.08, nil, nil, {Size = UDim2.new(0.97, 0, 0, 40)})
+            Tween(execBtn, 0.08, nil, nil, {Size = UDim2.new(0.97, 0, 0, 38)})
         end)
         execBtn.MouseButton1Up:Connect(function()
-            Tween(execBtn, 0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out, {Size = UDim2.new(1, 4, 0, 44)})
+            Tween(execBtn, 0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out, {Size = UDim2.new(1, 4, 0, 42)})
         end)
 
         -- Execute logic — Delta safe
         execBtn.MouseButton1Click:Connect(function()
             execBtn.Text = "⚡ Executing..."
-            execBtn.TextColor3 = CONFIG.Colors.Success
+            execBtn.TextColor3 = S_COLORS.Success
             
-            -- Webhook log
+            -- Webhook log (using global CONFIG if exists, else skip)
             local cleanName = name:gsub("[🔥💥⚡🌌🌀] ", "")
-            SendWebhook(cleanName, url)
+            if typeof(SendWebhook) == "function" then
+                SendWebhook(cleanName, url)
+            end
             
-            -- Delta-safe execution with error handling
+            -- Delta-safe execution
             task.spawn(function()
                 local ok, result = pcall(function()
                     local src = game:HttpGet(url, true)
@@ -325,10 +344,10 @@
                 if not ok then
                     warn("[MAXX HUB] Execution error: " .. tostring(result))
                     execBtn.Text = "✕ Failed"
-                    execBtn.TextColor3 = CONFIG.Colors.Error
+                    execBtn.TextColor3 = S_COLORS.Error
                     task.wait(1.5)
                     execBtn.Text = "▶ EXECUTE"
-                    execBtn.TextColor3 = CONFIG.Colors.Text
+                    execBtn.TextColor3 = S_COLORS.Text
                 end
             end)
             
@@ -343,11 +362,11 @@
     end
 
     --// Create 5 Script Cards
-    MakeScriptCard("CYRAA HUB", "Original Lucky Block executor\nStable & optimized", CONFIG.Colors.Cyraa, CONFIG.ScriptURL, false, false)
-    MakeScriptCard("TORA IS ME", "Alternative Lucky Block script\nEnhanced features", CONFIG.Colors.Tora, CONFIG.ScriptURL2, false, false)
-    MakeScriptCard("FARTEZ HUB", "Powerful Lucky Block executor\nAdvanced tools", CONFIG.Colors.Fartez, CONFIG.ScriptURL3, false, false)
-    MakeScriptCard("NOTZNX", "Lightweight Lucky Block script\nFast execution", CONFIG.Colors.NotZnx, CONFIG.ScriptURL4, true, false)
-    MakeScriptCard("MYSTRIX HUB", "Op Script — powerful features\nUse at own risk", CONFIG.Colors.Mystrix, CONFIG.ScriptURL5, true, true)
+    MakeScriptCard("CYRAA HUB", "Original Lucky Block executor\nStable & optimized", S_COLORS.Cyraa, CONFIG.ScriptURL, false, false)
+    MakeScriptCard("TORA IS ME", "Alternative Lucky Block script\nEnhanced features", S_COLORS.Tora, CONFIG.ScriptURL2, false, false)
+    MakeScriptCard("FARTEZ HUB", "Powerful Lucky Block executor\nAdvanced tools", S_COLORS.Fartez, CONFIG.ScriptURL3, false, false)
+    MakeScriptCard("NOTZNX", "Lightweight Lucky Block script\nFast execution", S_COLORS.NotZnx, CONFIG.ScriptURL4, true, false)
+    MakeScriptCard("MYSTRIX HUB", "Op Script — powerful features\nUse at own risk", S_COLORS.Mystrix, CONFIG.ScriptURL5, true, true)
 
     --// Selector Footer
     Create("TextLabel", {
@@ -356,7 +375,7 @@
         AnchorPoint = Vector2.new(0.5, 0),
         BackgroundTransparency = 1,
         Text = "MAXX HUB  •  Multi-Script Platform  •  discord.gg/nqEUcZm4s",
-        TextColor3 = CONFIG.Colors.SubText,
+        TextColor3 = S_COLORS.SubText,
         Font = Enum.Font.Gotham,
         TextSize = 11,
         Parent = selectorFrame,
